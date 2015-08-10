@@ -2,4 +2,4 @@
 Developers
 ==========
 
-* Andreas Bresser <self@andreasbresser.de>
+* Execution Unit Ltd.
