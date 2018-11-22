@@ -70,13 +70,5 @@ using the example data you could enter:
 
 ..
 
-    ./txtrpacker.py -pad 4 ./testart output.png
+    ./txtrpacker.py -pad 4 ./test/images output.png
 
-
-
-
-Note
-====
-
-This project has been set up using PyScaffold 2.2.1. For details and usage
-information on PyScaffold see http://pyscaffold.readthedocs.org/.
