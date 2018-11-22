@@ -14,8 +14,10 @@ setup(
     url="https://github.com/brean/txtrpacker",
     version="0.0.2",
     author="Andreas Bresser, Execution Unit Ltd.",
+    author_email="self@andreasbresser.de",
     packages=find_packages(),
     tests_require=[],
     include_package_data=True,
-    install_requires=[],
+    classifiers=['Development Status :: 4 - Beta'],
+    install_requires=[]
 )
