@@ -4,6 +4,8 @@ txtrpacker
 
 Texture Packer (based on http://www.executionunit.com/blog/2013/04/12/python-script-to-build-a-texture-page-or-sprite-sheet/ by Execution Unit Ltd.)
 
+.. image:: https://coveralls.io/repos/github/brean/txtrpacker/badge.svg?branch=master
+
 Why pack textures/images?
 =========================
 If you're making a game then it's more efficient to tell the hardware:
