@@ -5,8 +5,10 @@ import logging
 from copy import copy
 from os.path import join
 from glob import glob
+import functools
+import operator 
 
-from rect import Rect
+from .rect import Rect
 
 log = logging.getLogger(__name__)
 
@@ -79,9 +81,9 @@ def _imagesize(i):
 # them in the BinPack Tree NOTE that they are compared backwards
 # as we want to go from big to small (r2->r1 as opposed to r1->r2)
 sort_heuristics = {
-    "maxarea": lambda r1, r2:  cmp(_imagesize(r2[1]), _imagesize(r1[1])),
-    "maxwidth": lambda r1, r2: cmp(r2[1].size[0], r1[1].size[0]),
-    "maxheight": lambda r1, r2: cmp(r2[1].size[1], r1[1].size[1]),
+    "maxarea": lambda r1, r2: operator.lt(_imagesize(r2[1]), _imagesize(r1[1])),
+    "maxwidth": lambda r1, r2: operator.lt(r2[1].size[0], r1[1].size[0]),
+    "maxheight": lambda r1, r2: operator.lt(r2[1].size[1], r1[1].size[1]),
 }
 
 
@@ -98,7 +100,7 @@ def pack_images(imagelist, padding, sort, maxdim, dstfilename):
         log.debug("\t%s %dx%d" % (name, image.size[0], image.size[1]))
 
     #sort the images based on the heuristic passed in
-    images = sorted(imagelist, cmp=sort_heuristics[sort])
+    images = sorted(imagelist, key=functools.cmp_to_key(sort_heuristics[sort]))
 
     log.debug("sorted order:")
     for name, image in images:
@@ -157,7 +159,7 @@ if __name__ == "__main__":
     printed to stdout in the format: "filename x y x2 y2"
     """
 
-    _epilog = " example: txtrpacker.py hud/images data/hud/texturepage.png"
+    _epilog = "example: txtrpacker.py hud/images data/hud/texturepage.png"
 
     parser = argparse.ArgumentParser(description=_description, epilog=_epilog)
     parser.add_argument("-v", action="store_true",
