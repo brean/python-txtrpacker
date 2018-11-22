@@ -37,7 +37,7 @@ If you're making a website then again it's quicker to ask the client browser to 
 
 So what this library does is, it takes a folder containing some images and combines them into one big image. We have some example images in `test/images` which will be automatically positioned in an output image using the command `python test_txtrpacker.py` in the test/-folder:
 
-![generated output image](https://raw.githubusercontent.com/brean/txtrpacker/v0.0.2/docs/images/out.png)
+![generated output image](https://raw.githubusercontent.com/brean/python-txtrpacker/v0.0.2/docs/images/out.png)
 
 
 # Algorithm 
