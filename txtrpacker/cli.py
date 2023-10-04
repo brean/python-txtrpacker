@@ -16,7 +16,7 @@ def main():
     printed to stdout in the format: "filename x y x2 y2"
     """
 
-    _epilog = " example: txtrpacker.py hud/images data/hud/texturepage.png"
+    _epilog = " example: txtrpacker images/ output.png"
 
     parser = argparse.ArgumentParser(description=_description, epilog=_epilog)
     parser.add_argument(

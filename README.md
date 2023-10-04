@@ -2,8 +2,6 @@
 
 Texture Packer (based on http://www.executionunit.com/blog/2013/04/12/python-script-to-build-a-texture-page-or-sprite-sheet/ by Execution Unit Ltd.)
 
-.. image:: https://coveralls.io/repos/github/brean/txtrpacker/badge.svg?branch=master
-
 ## Why pack textures/images?
 
 If you're making a game then it's more efficient to tell the hardware:
@@ -43,7 +41,7 @@ The python code can be run from the command line to pack a set of PNGs that are 
 
 ```bash
 
-    usage: txtrpacker.py [-h] [-v] [-pad PAD] [-sort SORT] [-maxdim MAXDIM]
+    usage: txtrpacker [-h] [-v] [-pad PAD] [-sort SORT] [-maxdim MAXDIM]
                      [--log LOG]
                      src dst
 
@@ -67,14 +65,6 @@ The python code can be run from the command line to pack a set of PNGs that are 
 
 using the example data you could enter:
 
+```bash
+$ txtrpacker -pad 4 ./testart output.png
 ```
-    txtrpacker.py -pad 4 ./testart output.png
-```
-
-
-
-Note
-====
-
-This project has been set up using PyScaffold 2.2.1. For details and usage
-information on PyScaffold see http://pyscaffold.readthedocs.org/.
