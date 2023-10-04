@@ -2,6 +2,9 @@
 
 Texture Packer (based on http://www.executionunit.com/blog/2013/04/12/python-script-to-build-a-texture-page-or-sprite-sheet/ by Execution Unit Ltd.)
 
+![BSD License](https://img.shields.io/github/license/brean/python-txtrpacker)
+![PyPI](https://img.shields.io/pypi/v/txtrpacker)
+
 ## Why pack textures/images?
 
 If you're making a game then it's more efficient to tell the hardware:
@@ -68,3 +71,18 @@ using the example data you could enter:
 ```bash
 $ txtrpacker -pad 4 ./testart output.png
 ```
+
+## Contributing
+
+Please use the [issue tracker](https://github.com/brean/python-txtrpacker/issues) to submit bug reports and feature requests.
+
+## License
+
+python-txtrpacker is distributed under the [BSD license](https://opensource.org/licenses/BSD).
+
+## Maintainer
+
+Andreas Bresser, self@andreasbresser.de
+
+## Authors / Contributers
+Authors and contributers are [listed on github](https://github.com/brean/python-txtrpacker/graphs/contributors).
