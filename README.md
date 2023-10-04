@@ -2,7 +2,7 @@
 
 Texture Packer (based on http://www.executionunit.com/blog/2013/04/12/python-script-to-build-a-texture-page-or-sprite-sheet/ by Execution Unit Ltd.)
 
-![BSD License](https://img.shields.io/github/license/brean/python-txtrpacker)
+![3-clause BSD license](https://img.shields.io/github/license/brean/python-txtrpacker)
 ![PyPI](https://img.shields.io/pypi/v/txtrpacker)
 
 ## Why pack textures/images?
@@ -78,7 +78,7 @@ Please use the [issue tracker](https://github.com/brean/python-txtrpacker/issues
 
 ## License
 
-python-txtrpacker is distributed under the [BSD license](https://opensource.org/licenses/BSD).
+python-txtrpacker is distributed under the [3-clause BSD license](https://opensource.org/license/bsd-3-clause/).
 
 ## Maintainer
 
