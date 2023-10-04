@@ -39,3 +39,5 @@ docs/_rst/*
 docs/_build/*
 cover/*
 MANIFEST
+
+output.png

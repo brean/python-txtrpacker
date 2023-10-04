@@ -1,13 +1,11 @@
 #!/usr/bin/env python
-import argparse
-from PIL import Image
 import logging
 from copy import copy
-from os.path import join
-from glob import glob
 import functools
+from PIL import Image
 
-from rect import Rect
+from .rect import Rect
+
 
 log = logging.getLogger(__name__)
 
@@ -49,7 +47,7 @@ class BinPackNode(object):
             self.filled = True
             return self.area
 
-        #I am going to subdivide myself, copy my area in to the two children
+        # I am going to subdivide myself, copy my area in to the two children
         # and then massage them to be useful sizes for placing the newarea.
         leftarea = copy(self.area)
         rightarea = copy(self.area)
@@ -76,8 +74,10 @@ class BinPackNode(object):
 def _imagesize(i):
     return i.size[0] * i.size[1]
 
+
 def cmp(a, b):
-    return (a > b) - (a < b) 
+    return (a > b) - (a < b)
+
 
 #table of heuristics to sort the list of images by before placing
 # them in the BinPack Tree NOTE that they are compared backwards
@@ -123,7 +123,7 @@ def pack_images(imagelist, padding, sort, maxdim, dstfilename):
 
             #insert each image into the BinPackNode area. If an image fails to insert
             # we start again with a slightly bigger target size.
-            for name, img in images:
+            for name, img in imagelist:
                 imsize = img.size
                 r = Rect(0, 0, imsize[0] + padding * 2, imsize[1] + padding * 2)
                 uv = tree.insert(r)
@@ -154,48 +154,3 @@ def pack_images(imagelist, padding, sort, maxdim, dstfilename):
     image.save(dstfilename, "PNG")
 
     return placement
-
-if __name__ == "__main__":
-    _description = """A utility to take a set of png images and pack them in to
-    a power of two image with padding. The placements of the source images is
-    printed to stdout in the format: "filename x y x2 y2"
-    """
-
-    _epilog = " example: txtrpacker.py hud/images data/hud/texturepage.png"
-
-    parser = argparse.ArgumentParser(description=_description, epilog=_epilog)
-    parser.add_argument("-v", action="store_true",
-                        help="enable verbose mode",
-                        default=False)
-    parser.add_argument("-pad", type=int,
-                        help="padding on each side of the texture (default: 2)",
-                        default=2)
-    parser.add_argument("-sort", type=str, default="maxarea",
-                        help="sort algorithm one of %s (default: maxarea)" % ",".join(sort_heuristics.keys()))
-    parser.add_argument("-maxdim", type=int, default=4096,
-                        help="maximum texture size permissable.")
-    parser.add_argument("--log", type=str,
-                        help="Logging level (INFO, DEBUG, WARN) (default: INFO)",
-                        default="INFO")
-    parser.add_argument("src", type=str, help="src directory")
-    parser.add_argument("dst", type=str, help="dest png file")
-
-    args = parser.parse_args()
-    numeric_level = getattr(logging, args.log.upper(), None)
-    if not isinstance(numeric_level, int):
-        log.error('Invalid log level: %s' % args.log)
-        exit(-1)
-    logging.basicConfig(level=numeric_level)
-
-    if args.sort not in sort_heuristics:
-        log.error("Uknown sort parameter '%s'" % args.sort)
-        exit(-1)
-
-    #get a list of PNG files in the current directory
-    names = glob(join(args.src, "*.png"))
-    #create a list of PIL Image objects, sorted by size
-    images = [(name, Image.open(name)) for name in names]
-
-    placements = pack_images(images, args.pad, args.sort, args.maxdim, args.dst)
-    for area, name, im in placements:
-        print("%s %d %d %d %d" % (name, area.x1, area.y1, area.x2, area.y2))
