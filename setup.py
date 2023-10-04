@@ -10,7 +10,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/brean/python-txtrpacker",
-    version="0.0.2",
+    version="0.3",
     license="BSD",
     author="Andreas Bresser",
     packages=find_packages(),
