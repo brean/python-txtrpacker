@@ -75,7 +75,7 @@ def _imagesize(i):
     return i.size[0] * i.size[1]
 
 
-def cmp(a, b):
+def _cmp(a, b):
     return (a > b) - (a < b)
 
 
@@ -83,9 +83,9 @@ def cmp(a, b):
 # them in the BinPack Tree NOTE that they are compared backwards
 # as we want to go from big to small (r2->r1 as opposed to r1->r2)
 sort_heuristics = {
-    "maxarea": lambda r1, r2:  cmp(_imagesize(r2[1]), _imagesize(r1[1])),
-    "maxwidth": lambda r1, r2: cmp(r2[1].size[0], r1[1].size[0]),
-    "maxheight": lambda r1, r2: cmp(r2[1].size[1], r1[1].size[1]),
+    "maxarea": lambda r1, r2:  _cmp(_imagesize(r2[1]), _imagesize(r1[1])),
+    "maxwidth": lambda r1, r2: _cmp(r2[1].size[0], r1[1].size[0]),
+    "maxheight": lambda r1, r2: _cmp(r2[1].size[1], r1[1].size[1]),
 }
 
 
@@ -99,14 +99,14 @@ def pack_images(imagelist, padding, sort, maxdim, dstfilename):
 
     log.debug("unsorted order:")
     for name, image in imagelist:
-        log.debug("\t%s %dx%d" % (name, image.size[0], image.size[1]))
+        log.debug('\t%s %dx%d" ', name, image.size[0], image.size[1])
 
     #sort the images based on the heuristic passed in
     imagelist.sort(key=functools.cmp_to_key(sort_heuristics[sort]))
 
     log.debug("sorted order:")
     for name, image in imagelist:
-        log.debug("\t%s %dx%d" % (name, image.size[0], image.size[1]))
+        log.debug('\t%s %dx%d', name, image.size[0], image.size[1])
 
     #the start dimension of the target image. this grows
     # by doubling to accomodate the images. Should start
@@ -136,17 +136,20 @@ def pack_images(imagelist, padding, sort, maxdim, dstfilename):
             #if we get here we've found a place for all the images so
             # break from the while True loop
             break
-        except ValueError:
-            log.debug("Taget Dim [%dx%d] too small" % (targetdim_x, targetdim_y))
+        except ValueError as value_err:
+            log.debug(
+                'Taget Dim [%dx%d] too small', targetdim_x, targetdim_y)
             if targetdim_x == targetdim_y:
                 targetdim_x = targetdim_x * 2
                 if targetdim_x > maxdim:
-                    raise Exception("Too many textures to pack in to max texture size %dx%d\n" % (maxdim, maxdim))
+                    raise value_err
             else:
                 targetdim_y = targetdim_x
 
     #save the images to the target file packed
-    log.info("Packing %d images in to %dx%d" % (len(imagelist), targetdim_x, targetdim_y))
+    log.info(
+        "Packing %d images in to %dx%d",
+        len(imagelist), targetdim_x, targetdim_y)
     image = Image.new("RGBA", (targetdim_x, targetdim_y))
     for uv, name, img in placement:
         image.paste(img, (uv.x1, uv.y1))
