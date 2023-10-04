@@ -5,6 +5,7 @@ import logging
 from copy import copy
 from os.path import join
 from glob import glob
+import functools
 
 from rect import Rect
 
@@ -75,6 +76,9 @@ class BinPackNode(object):
 def _imagesize(i):
     return i.size[0] * i.size[1]
 
+def cmp(a, b):
+    return (a > b) - (a < b) 
+
 #table of heuristics to sort the list of images by before placing
 # them in the BinPack Tree NOTE that they are compared backwards
 # as we want to go from big to small (r2->r1 as opposed to r1->r2)
@@ -98,10 +102,10 @@ def pack_images(imagelist, padding, sort, maxdim, dstfilename):
         log.debug("\t%s %dx%d" % (name, image.size[0], image.size[1]))
 
     #sort the images based on the heuristic passed in
-    images = sorted(imagelist, cmp=sort_heuristics[sort])
+    imagelist.sort(key=functools.cmp_to_key(sort_heuristics[sort]))
 
     log.debug("sorted order:")
-    for name, image in images:
+    for name, image in imagelist:
         log.debug("\t%s %dx%d" % (name, image.size[0], image.size[1]))
 
     #the start dimension of the target image. this grows
