@@ -5,9 +5,9 @@ name = "pypi"
 
 [packages]
 txtrpacker = {path = "."}
-Pillow = "*"
 
 [dev-packages]
+Pillow = "*"
 
 [requires]
 python_version = "3.10"
